@@ -1,0 +1,29 @@
+Normal Traffic Code :
+
+
+import http from 'k6/http';
+import { sleep, check } from 'k6';
+
+// Test configuration (realistic load pattern)
+export const options = {
+  stages: [
+    { duration: '30s', target: 20 },  // ramp up
+    { duration: '1m', target: 50 },   // steady load
+    { duration: '30s', target: 0 },   // ramp down
+  ],
+  thresholds: {
+    http_req_duration: ['p(95)<500'], // 95% requests < 500ms
+    http_req_failed: ['rate<0.01'],   // <1% errors
+  },
+};
+
+export default function () {
+  const res = http.get('https://test.k6.io');
+
+  // Validate response (VERY IMPORTANT in real testing)
+  check(res, {
+    'status is 200': (r) => r.status === 200,
+  });
+
+  sleep(1);
+}

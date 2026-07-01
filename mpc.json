@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "grafana": {
+      "command": "npx",
+      "args": ["@grafana/mcp-server"],
+      "env": {
+        "GRAFANA_URL": "https://shubhampasricha1096.grafana.net",
+        "GRAFANA_API_KEY": "61088433c3992f00a25a9f513d2214e5b1c977d6283e8cf8e399b19c56024a21"
+      }
+    }
+  }
+}
